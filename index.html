@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -103,9 +103,10 @@
       <div class="brand"><div class="logo"></div> Hungamarr</div>
       <div class="nav-links">
         <a href="#features">Features</a>
-        <a href="#showcase">Showcase</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#showcase">Personal</a>
+        <a href="#pricing">Sales/Buy</a>
         <a href="#contact">Contact</a>
+         
       </div>
       <button class="btn menu-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
     </div>
@@ -114,9 +115,12 @@
   <header class="hero">
     <div class="container hero-wrap">
       <div>
-        <span class="tag">Personal Portfolio</span>
-        <h1 class="headline">Welcome to <span style="background:linear-gradient(135deg,var(--brand),var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent">Hungamarr</span></h1>
-        <p class="sub">This is my personal website where I share projects, skills, and ideas. Built with modern HTML, CSS, and JavaScript.</p>
+        <span class="tag">Personal Proportal</span>
+        <h1 class="headline">Welcome to <span style="background:linear-gradient(135deg,var(--brand)
+        ,var(--brand-2)); -webkit-background-clip:text; background-clip:text; 
+        color:transparent">Hungamarr</span></h1>
+        <p class="sub">This is my personal website where I share projects, skills, and ideas.
+             Built with modern HTML, CSS, and JavaScript.</p>
         <div class="hero-cta">
           <a class="btn primary" href="#features">Explore</a>
           <a class="btn" href="#contact">Get in Touch →</a>
@@ -124,7 +128,8 @@
       </div>
       <div class="hero-card" data-reveal>
         <strong>About Me</strong>
-        <p>Hello! I’m Hungamarr. I love building web applications, learning new technologies, and creating clean designs. This site is my digital space to showcase my journey.</p>
+        <p>Hello! I’m Hari Om. I love building web applications, learning new technologies,
+             and creating clean designs. This site is my digital space to showcase my journey.</p>
       </div>
     </div>
   </header>
@@ -138,15 +143,18 @@
       <div class="cards">
         <article class="card" data-reveal>
           <h3>Web Development</h3>
-          <p class="muted">Building responsive and modern web applications using HTML, CSS, and JavaScript.</p>
+          <p class="muted">Building responsive and modern 
+            web applications using HTML, CSS, and JavaScript.</p>
         </article>
         <article class="card" data-reveal>
           <h3>UI/UX Design</h3>
-          <p class="muted">Designing user-friendly and visually appealing interfaces with accessibility in mind.</p>
+          <p class="muted">Designing user-friendly and visually
+             appealing interfaces with accessibility in mind.</p>
         </article>
         <article class="card" data-reveal>
           <h3>Learning & Growth</h3>
-          <p class="muted">Constantly exploring new tools and frameworks to improve development skills.</p>
+          <p class="muted">Constantly exploring new
+             tools and frameworks to improve development skills.</p>
         </article>
       </div>
     </div>
@@ -161,11 +169,13 @@
       <div class="grid" style="grid-template-columns:1.2fr 1fr">
         <article class="card" data-reveal>
           <h3>Portfolio Website</h3>
-          <p class="muted">A modern and responsive portfolio template created with HTML, CSS, and JavaScript.</p>
+          <p class="muted">A modern and responsive proportal template 
+            created with HTML, CSS, and JavaScript.</p>
         </article>
         <article class="card" data-reveal>
           <h3>Mini Web Apps</h3>
-          <p class="muted">Small interactive projects showcasing problem-solving and creativity.</p>
+          <p class="muted">Small interactive projects 
+            showcasing problem-solving and creativity.</p>
         </article>
       </div>
     </div>
@@ -183,7 +193,7 @@
           <p class="price">Free</p>
           <ul>
             <li>Simple websites</li>
-            <li>Portfolio setup</li>
+            <li>Porportal setup</li>
           </ul>
         </article>
         <article class="card" data-reveal>
@@ -255,7 +265,6 @@
     document.querySelectorAll('[data-reveal]').forEach(el=> io.observe(el));
 
     document.getElementById('year').textContent = new Date().getFullYear();
-
     const form = document.getElementById('emailForm');
     const msg = document.getElementById('formMsg');
     form?.addEventListener('submit', (e)=>{
@@ -263,6 +272,8 @@
       const email = new FormData(form).get('email');
       msg.textContent = `Thanks for reaching out, ${email}! I will get back to you soon.`;
     })
-  </script>
+chat  </script>
 </body>
 </html>
+
+
