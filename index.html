@@ -1,0 +1,268 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hungamarr — Personal Website</title>
+  <meta name="description" content="Hungamarr — A modern personal website landing page." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --bg-soft: #0f1530;
+      --text: #e8ecf8;
+      --muted: #a6b0cf;
+      --brand: #7c5cff;
+      --brand-2: #22d3ee;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --ring: rgba(124,92,255,0.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius-xl: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(124,92,255,.22), transparent 60%),
+                  radial-gradient(1200px 800px at -10% 20%, rgba(34,211,238,.18), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+
+    .container{width:100%; max-width:1100px; margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:28px}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; cursor:pointer;
+      border:1px solid var(--border); color:var(--text); background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
+      padding:12px 18px; border-radius:14px; backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-2px); border-color: rgba(124,92,255,.6); box-shadow: 0 12px 34px rgba(124,92,255,.2)}
+    .btn.primary{ background: linear-gradient(135deg, var(--brand), var(--brand-2)); border-color: transparent; font-weight:700 }
+    .tag{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+
+    .nav{ position:sticky; top:0; z-index:50; background: linear-gradient(180deg, rgba(11,16,32,.85), rgba(11,16,32,.65)); backdrop-filter: blur(12px); border-bottom:1px solid var(--border) }
+    .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 0 }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px }
+    .logo{ width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:0 6px 18px var(--ring) }
+    .nav-links{ display:flex; gap:18px }
+    .nav-links a{ color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:10px }
+    .nav-links a:hover{ color:var(--text); background: rgba(255,255,255,.06) }
+    .menu-btn{ display:none }
+
+    .hero{ padding:86px 0 48px }
+    .hero-wrap{ display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:center }
+    .headline{ font-size:clamp(32px, 5vw, 56px); line-height:1.1; font-weight:800; letter-spacing:-.02em; margin:10px 0 14px }
+    .sub{ color:var(--muted); max-width:58ch }
+    .hero-cta{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap }
+
+    .hero-card{ border:1px solid var(--border); border-radius: var(--radius-xl); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); padding:18px; box-shadow: var(--shadow) }
+    .metrics{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px }
+    .metric{ background:var(--card); border:1px solid var(--border); padding:14px; border-radius:16px; text-align:center }
+    .metric .num{ font-size:28px; font-weight:800 }
+    .spark{ height:64px; border-radius:16px; background: conic-gradient(from 120deg, rgba(124,92,255,.5), rgba(34,211,238,.5)); mask: radial-gradient(40px 40px at 40% 40%, black 60%, transparent 70%); opacity:.7 }
+
+    section{ padding:52px 0 }
+    .section-head{ display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:22px }
+    .section-head h2{ font-size:28px; margin:0 }
+    .cards{ display:grid; grid-template-columns: repeat(3, 1fr); gap:22px }
+    .card{ border:1px solid var(--border); border-radius:20px; background:var(--card); padding:18px; box-shadow: var(--shadow) }
+    .card h3{ margin:10px 0 8px }
+    .badge{ display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.05) }
+
+    pre{ margin:0; overflow:auto; padding:16px; border-radius:14px; border:1px solid var(--border); background: #0a0f24 }
+    code{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
+
+    .pricing{ grid-template-columns:repeat(3,1fr) }
+    .price{ font-size:32px; font-weight:800 }
+
+    .testimonial{ display:flex; gap:14px; align-items:flex-start }
+    .avatar{ width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--brand-2)) }
+
+    .cta{ border:1px dashed rgba(124,92,255,.45); border-radius:24px; padding:22px; background:linear-gradient(180deg, rgba(124,92,255,.14), rgba(34,211,238,.08)) }
+
+    footer{ border-top:1px solid var(--border); padding:24px 0 60px; color:var(--muted) }
+
+    [data-reveal]{ opacity:0; transform: translateY(12px); transition: all .6s cubic-bezier(.2,.7,.2,1) }
+    [data-reveal].visible{ opacity:1; transform: none }
+
+    @media (max-width: 960px){ .hero-wrap{ grid-template-columns:1fr } .cards{ grid-template-columns:1fr 1fr } .pricing{ grid-template-columns:1fr } }
+    @media (max-width: 640px){ .nav-links{ display:none } .menu-btn{ display:inline-flex } .cards{ grid-template-columns:1fr } .metrics{ grid-template-columns:1fr 1fr } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><div class="logo"></div> Hungamarr</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="btn menu-btn" id="menuToggle" aria-label="Toggle Menu">☰</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <span class="tag">Personal Portfolio</span>
+        <h1 class="headline">Welcome to <span style="background:linear-gradient(135deg,var(--brand),var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent">Hungamarr</span></h1>
+        <p class="sub">This is my personal website where I share projects, skills, and ideas. Built with modern HTML, CSS, and JavaScript.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#features">Explore</a>
+          <a class="btn" href="#contact">Get in Touch →</a>
+        </div>
+      </div>
+      <div class="hero-card" data-reveal>
+        <strong>About Me</strong>
+        <p>Hello! I’m Hungamarr. I love building web applications, learning new technologies, and creating clean designs. This site is my digital space to showcase my journey.</p>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <h2>My Skills</h2>
+        <span class="tag">What I Do</span>
+      </div>
+      <div class="cards">
+        <article class="card" data-reveal>
+          <h3>Web Development</h3>
+          <p class="muted">Building responsive and modern web applications using HTML, CSS, and JavaScript.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>UI/UX Design</h3>
+          <p class="muted">Designing user-friendly and visually appealing interfaces with accessibility in mind.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Learning & Growth</h3>
+          <p class="muted">Constantly exploring new tools and frameworks to improve development skills.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="showcase">
+    <div class="container">
+      <div class="section-head">
+        <h2>Projects Showcase</h2>
+        <span class="tag">Some Highlights</span>
+      </div>
+      <div class="grid" style="grid-template-columns:1.2fr 1fr">
+        <article class="card" data-reveal>
+          <h3>Portfolio Website</h3>
+          <p class="muted">A modern and responsive portfolio template created with HTML, CSS, and JavaScript.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Mini Web Apps</h3>
+          <p class="muted">Small interactive projects showcasing problem-solving and creativity.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <h2>Services</h2>
+        <span class="tag">Available for Collaboration</span>
+      </div>
+      <div class="grid pricing">
+        <article class="card" data-reveal>
+          <h3>Basic</h3>
+          <p class="price">Free</p>
+          <ul>
+            <li>Simple websites</li>
+            <li>Portfolio setup</li>
+          </ul>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Professional</h3>
+          <p class="price">Custom</p>
+          <ul>
+            <li>Advanced projects</li>
+            <li>Full website design</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="cta" data-reveal>
+        <h2 style="margin:0 0 6px">Get in Touch</h2>
+        <p class="muted" style="margin:0 0 12px">Have a project or idea? Feel free to connect with me via email below.</p>
+        <form id="emailForm" class="grid" style="grid-template-columns:1fr auto; gap:12px">
+          <input required name="email" type="email" placeholder="your@email.com" aria-label="Email"
+                 style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.05); color:var(--text)">
+          <button class="btn primary" type="submit">Send</button>
+        </form>
+        <p id="formMsg" class="muted" style="margin-top:8px"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+      <span>© <span id="year"></span> Hungamarr</span>
+      <div style="display:flex; gap:14px">
+        <a href="#" style="color:var(--muted); text-decoration:none">Privacy</a>
+        <a href="#" style="color:var(--muted); text-decoration:none">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuToggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuBtn?.addEventListener('click', ()=>{
+      const open = navLinks?.style.display === 'flex';
+      navLinks.style.display = open ? 'none' : 'flex';
+      navLinks.style.flexDirection = 'column';
+      navLinks.style.position = 'absolute';
+      navLinks.style.right = '20px';
+      navLinks.style.top = '60px';
+      navLinks.style.background = 'rgba(11,16,32,.95)';
+      navLinks.style.padding = '12px';
+      navLinks.style.border = '1px solid var(--border)';
+      navLinks.style.borderRadius = '12px';
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      })
+    })
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      })
+    },{threshold:.12});
+    document.querySelectorAll('[data-reveal]').forEach(el=> io.observe(el));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('emailForm');
+    const msg = document.getElementById('formMsg');
+    form?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const email = new FormData(form).get('email');
+      msg.textContent = `Thanks for reaching out, ${email}! I will get back to you soon.`;
+    })
+  </script>
+</body>
+</html>
