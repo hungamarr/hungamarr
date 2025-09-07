@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tap Counter — 1,00,000 तक</title>
+  <style>
+    :root {
+      --bg: #0f172a; /* slate-900 */
+      --panel: #111827cc; /* slate-900/80 */
+      --text: #e5e7eb; /* slate-200 */
+      --muted: #94a3b8; /* slate-400 */
+      --accent: #22c55e; /* green-500 */
+      --danger: #ef4444; /* red-500 */
+      --ring: #38bdf8;  /* sky-400 */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 1200px at 80% -10%, #1f2937, var(--bg));
+      color: var(--text);
+      display: grid; place-items: center; padding: 16px;
+    }
+
+    .app {
+      width: 100%; max-width: 520px; display: grid; gap: 14px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #0b1220, #0b1220f2 60%, #0b1220e6);
+      border: 1px solid #1f2937; border-radius: 20px; box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #1f2937; }
+    .title { font-weight: 700; letter-spacing: .3px; }
+    .sub { font-size: 12px; color: var(--muted); }
+
+    .display { text-align: center; padding: 16px 16px 0; }
+    .count {
+      font-size: clamp(56px, 16vw, 92px); line-height: 1; font-weight: 800; letter-spacing: 1px;
+      text-shadow: 0 2px 0 #0006;
+    }
+    .goal { margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+    .tap-area {
+      display: grid; place-items: center; margin: 16px; border-radius: 18px; border: 1px dashed #243142; padding: 22px;
+      background: linear-gradient(180deg, #0b1220, #0b1220cc);
+    }
+
+    .tap-btn {
+      width: 100%; height: 140px; border-radius: 16px; border: 0; cursor: pointer;
+      font-size: clamp(18px, 3vw, 22px); font-weight: 700; color: #05150b;
+      background: linear-gradient(180deg, #34d399, #22c55e);
+      box-shadow: inset 0 -6px 0 #16a34a, 0 8px 24px #22c55e33;
+      transition: transform .06s ease, box-shadow .12s ease, filter .2s ease;
+    }
+    .tap-btn:active { transform: translateY(2px); box-shadow: inset 0 -3px 0 #16a34a, 0 5px 16px #22c55e22; }
+    .tap-btn:disabled { filter: grayscale(.25) brightness(.8); cursor: not-allowed; }
+
+    .toolbar {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 0 16px 16px;
+    }
+
+    .btn { border-radius: 12px; border: 1px solid #243142; padding: 10px 12px; background: #0b1220; color: var(--text); font-weight: 600; cursor: pointer; box-shadow: var(--shadow);
+      transition: filter .12s ease, border-color .12s ease; }
+    .btn:hover { filter: brightness(1.2); border-color: #334155; }
+    .btn[aria-variant="danger"] { background: linear-gradient(180deg, #1f2937, #0f172a); border-color: #3f2a2a; }
+
+    .muted { color: var(--muted); font-size: 12px; }
+
+    .footer { text-align: center; padding: 8px; color: var(--muted); font-size: 12px; }
+
+    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+      background: #111827; color: var(--text); border: 1px solid #243142; border-radius: 12px; padding: 10px 14px; box-shadow: var(--shadow);
+      opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+  </style>
+</head>
+<body>
+  <div class="app card" role="application" aria-label="Tap Counter">
+    <div class="header">
+      <div>
+        <div class="title">Tap Counter</div>
+        <div class="sub">हर टैप पर काउंट बढ़ेगा — सेव, रीस्टार्ट, शेयर</div>
+      </div>
+      <div class="muted" id="lastSaved">—</div>
+    </div>
+
+    <div class="display">
+      <div class="count" id="count">0</div>
+      <div class="goal" id="goalText">लक्ष्य: 1,00,000</div>
+    </div>
+
+    <div class="tap-area">
+      <button id="tapBtn" class="tap-btn" aria-live="polite"> ♥ ꧁ ༒राधे राधे༒꧂ ♥ </button>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn" id="saveBtn" title="मैन्युअल सेव">Save</button>
+      <button class="btn" id="shareBtn" title="वर्तमान काउंट शेयर करें">Share</button>
+      <button class="btn" id="exportBtn" title="फ़ाइल में एक्सपोर्ट करें">Export</button>
+      <button class="btn" aria-variant="danger" id="resetBtn" title="रीस्टार्ट (रीसेट)">Restart</button>
+    </div>
+
+    <div class="footer">Spacebar से भी टैप कर सकते हैं • डेटा अपने-आप सेव होता रहता है</div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const MAX = 100000; // 1 लाख
+      const KEY = 'tapCounter.count.v1';
+      const countEl = document.getElementById('count');
+      const goalText = document.getElementById('goalText');
+      const tapBtn = document.getElementById('tapBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const shareBtn = document.getElementById('shareBtn');
+      const exportBtn = document.getElementById('exportBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const lastSaved = document.getElementById('lastSaved');
+      const toast = document.getElementById('toast');
+
+      let count = 0;
+      let lastPersist = 0;
+
+      function load(){
+        const raw = localStorage.getItem(KEY);
+        count = raw ? parseInt(raw, 10) : 0;
+        if (Number.isNaN(count)) count = 0;
+        render();
+      }
+
+      function render(){
+        countEl.textContent = count.toLocaleString('en-IN');
+        goalText.textContent = `लक्ष्य: ${MAX.toLocaleString('en-IN')}`;
+        if (count >= MAX) {
+          tapBtn.disabled = true;
+          tapBtn.textContent = 'लक्ष्य पूरा! ✅';
+        } else {
+          tapBtn.disabled = false;
+          tapBtn.textContent = ' ♥ ꧁ ༒राधे राधे༒꧂ ♥';
+        }
+      }
+
+      function vibrate(ms=10){
+        if (navigator.vibrate) navigator.vibrate(ms);
+      }
+
+      function save(now=false){
+        const t = Date.now();
+        if (now || t - lastPersist > 600) { // debounce
+          localStorage.setItem(KEY, String(count));
+          lastPersist = t;
+          const when = new Date().toLocaleString();
+          lastSaved.textContent = `Saved: ${when}`;
+        }
+      }
+
+      function notify(msg){
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(notify._t);
+        notify._t = setTimeout(()=> toast.classList.remove('show'), 1800);
+      }
+
+      function tap(){
+        if (count >= MAX) { notify('लक्ष्य पूरा हो चुका है'); return; }
+        count += 1;
+        render();
+        save();
+        vibrate(8);
+      }
+
+      // Events
+      tapBtn.addEventListener('click', tap);
+      document.addEventListener('keydown', (e)=>{
+        if (e.code === 'Space') { e.preventDefault(); tap(); }
+      });
+
+      // Rapid tap (touch)
+      let lastTouch = 0;
+      document.addEventListener('touchstart', (e)=>{
+        const now = performance.now();
+        if (now - lastTouch > 45) { // simple throttle
+          lastTouch = now; tap();
+        }
+      }, {passive: true});
+
+      saveBtn.addEventListener('click', ()=>{ save(true); notify('सेव हो गया ✅'); });
+
+      exportBtn.addEventListener('click', ()=>{
+        const blob = new Blob([
+          `Tap Counter\nCount: ${count}\nMax: ${MAX}\nSaved: ${new Date().toISOString()}\n`
+        ], { type: 'text/plain;charset=utf-8' });
+        const a = document.createElement('a');
+        const ts = new Date().toISOString().replace(/[:.]/g,'-');
+        a.href = URL.createObjectURL(blob);
+        a.download = `tap-count-${ts}.txt`;
+        document.body.appendChild(a); a.click(); a.remove();
+        notify('फ़ाइल डाउनलोड हो गई');
+      });
+
+      shareBtn.addEventListener('click', async ()=>{
+        const text = `मेरा टैप काउंट: ${count.toLocaleString('en-IN')} / ${MAX.toLocaleString('en-IN')}`;
+        try {
+          if (navigator.share) {
+            await navigator.share({ title: 'Tap Counter', text });
+            notify('शेयर किया गया ✅');
+          } else if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            notify('कॉपी हो गया ✅');
+          } else {
+            // Fallback: prompt
+            window.prompt('कॉपी करें:', text);
+          }
+        } catch (e) {
+          notify('शेयर रद्द');
+        }
+      });
+
+      resetBtn.addEventListener('click', ()=>{
+        const ok = confirm('क्या आप पक्का रीस्टार्ट करना चाहते हैं? काउंट 0 हो जाएगा।');
+        if (!ok) return;
+        count = 0; render(); save(true); notify('रीस्टार्ट हो गया'); vibrate(12);
+      });
+
+      // Init
+      load();
+      save(true);
+    })();
+  </script>
+</body>
+</html>
