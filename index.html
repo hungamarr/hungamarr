@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+9<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,6 +8,146 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    body{
+
+ margin: 0;
+      padding: 0;
+      background-image: url("images/bgm.jpg"); /* image ka path */
+      background-size: cover;  /* image poore screen me fill hogi */
+      background-repeat: no-repeat;
+      background-position: center;
+
+      
+    }
+    /* Footer Styling */
+    
+.footer {
+  background: #0f172a;
+  color: #fff;
+  padding: 40px 20px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-left, .footer-middle, .footer-right {
+  flex: 1;
+  margin: 20px;
+  min-width: 250px;
+}
+
+.footer-left .logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-left p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.social-links a {
+  color: #fff;
+  margin-right: 12px;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  color: #38bdf8; /* light blue hover */
+}
+
+ /* Container for cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem;
+    }
+
+    /* Card styling */
+    .card {
+      background: #1e1e2f;
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      cursor: pointer;
+    }
+
+    /* Hover effect */
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #c7b2f3, #8e2de2);
+    }
+
+    .card h3 {
+      margin-bottom: 0.8rem;
+    }
+    .card p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+.footer-middle h3,
+.footer-right h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-middle ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-middle ul li {
+  margin: 8px 0;
+}
+
+.footer-middle ul li a {
+  color: #ddd;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-middle ul li a:hover {
+  color: #38bdf8;
+}
+
+.footer-right p {
+  margin: 8px 0;
+}
+
+.footer-right i {
+  margin-right: 8px;
+  color: #38bdf8;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  margin-top: 20px;
+}
+
+.footer-bottom a {
+  color: #38bdf8;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
     :root{
       --bg: #0b1020;
       --bg-soft: #0f1530;
@@ -62,7 +202,14 @@
     .headline{ font-size:clamp(32px, 5vw, 56px); line-height:1.1; font-weight:800; letter-spacing:-.02em; margin:10px 0 14px }
     .sub{ color:var(--muted); max-width:58ch }
     .hero-cta{ display:flex; gap:12px; margin-top:20px; flex-wrap:wrap }
-
+    .hero-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      background: linear-gradient(135deg, #c7b2f3, #8e2de2);}
+    .hero-card p {
+      font-size: 0.9rem;
+      line-height: 1.5; }
+      
     .hero-card{ border:1px solid var(--border); border-radius: var(--radius-xl); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); padding:18px; box-shadow: var(--shadow) }
     .metrics{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px }
     .metric{ background:var(--card); border:1px solid var(--border); padding:14px; border-radius:16px; text-align:center }
@@ -130,28 +277,27 @@
       </div>
     </div>
   </header>
+    <h2> My skills</h2>
+ <section id="features">
+    <div class="cards">
+      <!-- Card 1 -->
+      <article class="card">
+        <h3>Web Development</h3>
+        <p>Building responsive and modern web applications using HTML, CSS, and JavaScript. 
+        <br>I am working on C, C++ languages and Python.</p>
+      </article>
 
-  <section id="features">
-    <div class="container">
-      <div class="section-head">
-        <h2>My Skills</h2>
-        <span class="tag">What I Do</span>
-      </div>
-      <div class="cards">
-        <article class="card" data-reveal>
-          <h3>Web Development</h3>
-          <p class="muted">Building responsive and modern web applications using HTML, CSS, and JavaScript. 
-            <br> I am working on C, C++ languages and Python.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>UI/UX Design</h3>
-          <p class="muted">Designing user-friendly and visually appealing interfaces with accessibility in mind.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Learning & Growth</h3>
-          <p class="muted">Constantly exploring new tools and frameworks to improve development skills.</p>
-        </article>
-      </div>
+      <!-- Card 2 -->
+      <article class="card">
+        <h3>UI/UX Design</h3>
+        <p>Designing user-friendly and visually appealing interfaces with accessibility in mind.</p>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card">
+        <h3>Learning & Growth</h3>
+        <p>Constantly exploring new tools and frameworks to improve development skills.</p>
+      </article>
     </div>
   </section>
 
@@ -240,6 +386,9 @@
   <script>
     const menuBtn = document.getElementById('menuToggle');
     const navLinks = document.querySelector('.nav-links');
+    
+
+    
     menuBtn?.addEventListener('click', ()=>{
       const open = navLinks?.style.display === 'flex';
       navLinks.style.display = open ? 'none' : 'flex';
@@ -269,7 +418,61 @@
     document.querySelectorAll('[data-reveal]').forEach(el=> io.observe(el));
 
     document.getElementById('year').textContent = new Date().getFullYear();
+    
   </script>
+  <!-- ====== Footer Start ====== -->
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Left Section -->
+    <div class="footer-left">
+      <h2 class="logo">🚀 Hungamarr</h2>
+      <br><br>
+      <p>
+        reseaching teammates for complete our projects and come with us participants in Hackthons;
+      </p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <!-- Middle Section -->
+    <div class="footer-middle">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Notices</a></li>
+      </ul>
+    </div>
+
+    <!-- Right Section -->
+    <div class="footer-right">
+      <h3>Contact Info</h3>
+      <p><i class="fas fa-envelope"></i> Admin: Hariom </p>
+      <p><i class="fas fa-envelope" ></i> CC: hungamarr01@gmail.com</p>
+      <p>
+        <i class="fas fa-map-marker-alt"></i> Hariom personal website<br>
+        Faridabad, NCR -121102 <br>
+        Nearest ballabgarh bus stand
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Hungamarr. All rights reserved.</p>
+    <a href="#">Privacy Policy</a>
+  </div>
+</footer>
+<!-- ====== Footer End ====== -->
+
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
 
