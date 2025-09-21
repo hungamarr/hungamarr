@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+  
+</head>
+<style>
+    body{
+      background-color: dimgray;
+    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.calculator {
+  background-color: #f2f2f2;
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+  border: solid 1px #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  margin-top: 40px;
+}
+
+#result{
+    width: 100%;
+    padding: 10px;
+    font-size: 24px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) inset;
+    border-radius: 5px;
+}
+
+.buttons{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    margin-top: 20px;
+}
+
+button{
+    padding: 10px;
+    font-size: 24px;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+button:hover{
+    background-color: #ddd;
+}
+
+.clear{
+    background-color: #2efcf1;
+    color: #fff;
+}
+
+.number, .decimal{
+    background-color: #fff;
+    color: #333;
+
+}
+
+.operator{
+    background-color: #d9c300;
+    color: #fff;
+}
+
+.equals{
+    background-color: #446954;
+    grid-row: span 3;
+    color: #fff;
+}
+
+</style>
+<body>
+    <div class="calculator">
+        <input type="text" id="result" readonly>
+        <div class="buttons">
+            <button class="clear">C</button>
+            <button class="operator">/</button>
+            <button class="operator">*</button>
+            <button class="operator">-</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator">+</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="equals">=</button>
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="number">0</button>
+            <button class="decimal">.</button>
+            <button class=""><a href="https://hungamarr.github.io/hungamarr/" >↩</a></button> 
+        </div>
+    </div>
+    <script >
+const buttonsEl = document.querySelectorAll("button");
+
+const inputFieldEl = document.getElementById("result");
+
+for (let i = 0; i < buttonsEl.length; i++) {
+  buttonsEl[i].addEventListener("click", () => {
+    const buttonValue = buttonsEl[i].textContent;
+    if (buttonValue === "C") {
+      clearResult();
+    } else if (buttonValue === "=") {
+      calculateResult();
+    } else {
+      appendValue(buttonValue);
+    }
+  });
+}
+
+function clearResult() {
+  inputFieldEl.value = "";
+}
+
+function calculateResult() {
+  inputFieldEl.value = eval(inputFieldEl.value);
+}
+
+function appendValue(buttonValue) {
+  inputFieldEl.value += buttonValue;
+  //   inputFieldEl.value = inputFieldEl.value + buttonValue;
+}
+</script>
+</body>
+</html>
