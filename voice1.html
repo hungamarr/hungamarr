@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice to Text Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f4f4f4;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      background-color: #6d28d9;
+      color: white;
+    }
+    p {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Voice to Text Converter</h1>
+  <button id="start-btn">🎤 Speak Now</button>
+  <p id="output"></p>
+
+  <script>
+    const startBtn = document.getElementById('start-btn');
+    const output = document.getElementById('output');
+
+    // Check for browser support
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Your browser does not support Speech Recognition. Use Chrome or Edge.");
+    } else {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false; // Stop automatically after one sentence
+      recognition.interimResults = false; // Only final result
+      recognition.lang = 'en-US'; // Language
+
+      startBtn.addEventListener('click', () => {
+        recognition.start();
+      });
+
+      recognition.onstart = () => {
+        startBtn.textContent = "🎙 Listening...";
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        output.textContent = transcript;
+      };
+
+      recognition.onerror = (event) => {
+        console.error(event.error);
+        output.textContent = "Error occurred: " + event.error;
+      };
+
+      recognition.onend = () => {
+        startBtn.textContent = "🎤 Speak Now";
+      };
+    }
+  </script>
+
+</body>
+</html>
